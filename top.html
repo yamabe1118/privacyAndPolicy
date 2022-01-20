@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    </head>
+
+    <style>
+      ul li {
+        padding-top:20px; 
+      }
+    </style>
+    <body>
+
+        <div id="app">
+            <v-app style="background-color:#fff6ec; ">
+              <v-main>
+
+                <template>
+                  <v-carousel
+                    height="auto"
+                    cycle
+                    hide-delimiter-background
+                    show-arrows-on-hover
+                  >
+                    <v-carousel-item
+                      v-for="(item,i) in items"
+                      :key="i"
+                      :src="item.src">
+                    </v-carousel-item>
+                  </v-carousel>
+                </template>
+
+                <template>
+                  <v-tabs v-model="tab_selected" centered grow color="#fd682b" >
+                    <v-tabs-slider color="#fd682b"></v-tabs-slider>
+                      <v-tab class="font-weight-bold" v-for="(category, index) in categories" :key="index" @click="$vuetify.goTo('#sec_'+index)" justify="center" >
+                        {{category.name}}
+                      </v-tab>
+                    </span>
+                  </v-tabs> 
+                  <v-divider class="mb-6"></v-divider>
+
+                  <section :key="0">
+                    <v-container :id="'sec_'+0" class="mb-10" style="background-color:white; ">
+                      <span :id="'span_'+0" v-intersect="handleIntersect"></span>
+
+                      <h2 class="font-weight-bold text-center mt-4">
+                        グルメポケットとは
+                      </h2>
+
+                        <v-container fluid>
+                          <v-layout justify-center align-center>
+                            <v-flex shrink>
+                              <div class="align-center text-center">
+                                <v-img 
+                                  contain
+                                  class="align-center mx-auto"
+                                  src="https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/%E3%83%9B%E3%83%BC%E3%83%A0%E3%83%98%E3%82%9A%E3%83%BC%E3%82%B7%E3%82%99MAIN%E7%94%BB%E5%83%8F.001.jpeg"
+                                  height="auto"
+                                >
+                              </div>
+                            </v-flex>
+                          </v-layout>
+                        </v-container>
+
+                        <h1 class="orange--text text--darken-3 font-weight-bold text-center ">
+                          グルメポケットは、アナタの近くの様々なジャンルの飲食店の
+                        </h1>
+                        <h1 class="orange--text text--darken-3 font-weight-bold text-center mb-5">
+                          お得なイベント情報を提供するアプリです。
+                        </h1>
+  
+                        <ul class="grey--text text--darken-1 text-center font-weight-bold mb-5" style="list-style: none;">
+                          <li>フォローした様々な飲食店のお得なイベント情報がスマホに届く！！</li>
+                          <li>様々なジャンルのお店のお得なイベント情報で外食をよりハッピーに！！</li>
+                          <li>マイページ機能を利用して気に入ったお店をフォロー！！自分だけのお気に入りお店リストを作ろう！！</li>
+                        </ul>
+  
+                        <h1 class="orange--text text--darken-3 font-weight-bold text-center mb-5">
+                          完全無料！!全ての機能を使い放題！！
+                        </h1>
+
+                    </v-container>
+
+                  </section>
+
+
+
+                  <section :key="1" class="mb-6">
+                    <v-container :id="'sec_'+1" class="mb-10" style="background-color:white; ">
+                      <span :id="'span_'+1" v-intersect="handleIntersect"></span>
+
+                      <h2 class="font-weight-bold text-center mt-4 mb-4" color="#fd682b"> 
+                        使い方 how to
+                      </h2>
+
+                      <h3 class="orange--text text--darken-3 font-weight-bold text-start mb-5 ml-10">
+                        1. イベント検索機能
+                      </h3>
+
+                      <v-row>
+                        <v-col  xs="12" sm="4" ms="4" lg="4" xl="4">
+                          <v-container fluid >
+                            <v-layout justify-center align-center>
+                              <v-flex shrink>
+                                <div class="align-center text-center">
+                                  <v-img 
+                                    class="align-center"
+                                    src="https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/iphone%E8%BF%91%E3%81%8F%E3%81%AE%E3%82%A4%E3%83%98%E3%82%99%E3%83%B3%E3%83%88.jpeg"
+                                    contain
+                                    width="auto"
+                                    height="400"
+                                    
+                                  >
+                                </div>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                        </v-col>
+                        <v-col xs="12" sm="8" ms="8" lg="8" xl="8">
+                          <v-container>
+                            
+                            <ul class="grey--text text--darken-1 font-weight-bold">
+                              <li>アナタの今いる場所の近くの様々なジャンルから飲食店のお得なイベント情報を探す</li>
+                              <li>あなたの現在地から3000mの地域の飲食店を検索できます。</li>
+                              <li>全てのイベントは、アナタの現在地から近い順で表示されます。</li>
+                              <li>イベント種類も豊富！　男性限定　女性限定はもちろん！お気に入りのお店をフォローすればフォロワー限定のイベント情報を検索することも可能！！</li>
+                            </ul> 
+                          
+                          </v-container>
+                        </v-col>
+                      </v-row>
+
+                      <h3 class="orange--text text--darken-3 font-weight-bold text-start mb-5 mt-7 ml-10">
+                        2. 近くの飲食店の検索
+                      </h3>
+
+                      <v-row>
+                        <v-col  xs="12" sm="4" ms="4" lg="4" xl="4">
+                          <v-container fluid >
+                            <v-layout justify-center align-center>
+                              <v-flex shrink>
+                                <div class="align-center text-center">
+                                  <v-img 
+                                    class="align-center"
+                                    src="https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/iphone%E3%81%8A%E5%BA%97%E6%A4%9C%E7%B4%A2.jpg"
+                                    contain
+                                    width="auto"
+                                    height="400"
+                                    
+                                  >
+                                </div>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                        </v-col>
+                        <v-col xs="12" sm="8" ms="8" lg="8" xl="8">
+                          <v-container>
+                            
+                            <ul class="grey--text text--darken-1 font-weight-bold">
+                              <li>グルメポケットに登録されている様々なジャンルの飲食店の検索が可能。</li>
+                              <li>あなたの現在地から3000mの地域の飲食店を検索できます。</li>
+                              <li>お店の場所やプロフィール・連絡先などを閲覧可能！！</li>
+                            </ul> 
+                          
+                          </v-container>
+                        </v-col>
+                      </v-row>
+
+
+                      <h3 class="orange--text text--darken-3 font-weight-bold text-start mb-5 mt-7 ml-10">
+                        3. お気に入り登録機能
+                      </h3>
+
+                      <v-row>
+                        <v-col  xs="12" sm="4" ms="4" lg="4" xl="4">
+                          <v-container fluid >
+                            <v-layout justify-center align-center>
+                              <v-flex shrink>
+                                <div class="align-center text-center">
+                                  <v-img 
+                                    class="align-center"
+                                    src="https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/iphone%E3%81%8A%E6%B0%97%E3%81%AB%E5%85%A5%E3%82%8A.jpg"
+                                    contain
+                                    width="auto"
+                                    height="400"
+                                    
+                                  >
+                                </div>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                        </v-col>
+                        <v-col xs="12" sm="8" ms="8" lg="8" xl="8">
+                          <v-container>
+                            
+                            <ul class="grey--text text--darken-1 font-weight-bold">
+                              <li>気に入ったお店をフォローするとアナタのお気に入りお店リストに登録されます。</li>
+                              <li>アナタだけのオリジナルなお気に入りお店リストを作成することが可能！</li>
+                              <li>一度しか訪れたことのないお店でもフォローすれば、そのお店のイベント情報をどこにいても閲覧可能！！</li>
+                              <li>お気に入り登録しているお店が新たなイベントを作成するとアナタの携帯に即座に届きます。</li>
+                              <li>フォローしているユーザーしか閲覧できないフォロワー限定イベントも閲覧することができます。</li>
+                            </ul> 
+                          
+                          </v-container>
+                        </v-col>
+                      </v-row>
+
+                      <h3 class="orange--text text--darken-3 font-weight-bold text-start mb-5 mt-7 ml-10">
+                        4. 新着イベント通知機能
+                      </h3>
+
+                      <v-row>
+                        <v-col  xs="12" sm="4" ms="4" lg="4" xl="4">
+                          <v-container fluid >
+                            <v-layout justify-center align-center>
+                              <v-flex shrink>
+                                <div class="align-center text-center">
+                                  <v-img 
+                                    class="align-center"
+                                    src="https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/iphonepush%E9%80%9A%E7%9F%A5.jpg"
+                                    contain
+                                    width="auto"
+                                    height="400"
+                                    
+                                  >
+                                </div>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                        </v-col>
+                        <v-col xs="12" sm="8" ms="8" lg="8" xl="8">
+                          <v-container>
+                            
+                            <ul class="grey--text text--darken-1 font-weight-bold">
+                              <li>プッシュ通知をONにしておけばアナタのお気に入りリストに登録されているお店の新着イベントが即座にアナタの携帯に届きます</li>
+                            </ul> 
+                          </v-container>
+                        </v-col>
+                      </v-row>
+                      
+                  </section>
+
+                  <section :key="2">
+
+                    <v-container :id="'sec_'+2" class="mb-10" style="background-color:white; ">
+                      <span :id="'span_'+2" v-intersect="handleIntersect"></span>
+
+                      <h2 class="font-weight-bold text-center mt-4 mb-4" color="#fd682b"> 
+                        飲食店事業者さまへ
+                      </h2>
+                      
+                      <v-container fluid>
+                        <v-layout justify-center align-center>
+                          <v-flex shrink>
+                            <div class="align-center text-center">
+                              <v-img 
+                                class="align-center"
+                                src="https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/iPhone_13_Pro_-_Silver_-_Portrait-removebg-preview.png"
+                                lazy-src="https://picsum.photos/id/11/100/60"
+                                width="400"
+                                height="300"
+                              >
+                            </div>
+                          </v-flex>
+                        </v-layout>
+                      </v-container>
+
+                    </v-container>
+
+                  </section>
+
+                </template>
+
+                <template>
+                  <v-footer
+                    color="#ff9e14"
+                    padless
+                  >
+                    <v-row
+                      justify="center"
+                      no-gutters
+                    >
+                      <v-btn
+                        v-for="link in links"
+                        :key="link"
+                        color="white"
+                        text
+                        rounded
+                        class="my-2"
+                      >
+                        {{ link }}
+                      </v-btn>
+                      <v-col
+                        class=" py-4 text-center white--text"
+                        color="#ff9e14"
+                        cols="12"
+                      >
+                        {{ new Date().getFullYear() }} — <strong>グルメポケット</strong>
+                      </v-col>
+                    </v-row>
+                  </v-footer>
+                </template>
+
+              </v-main>
+            </v-app>
+          </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+        
+        <script>
+            var app = new Vue({
+                el:'#app',
+                vuetify: new Vuetify(),
+                data () {
+                  return {
+                    tab_selected:1,
+                    categories:[
+                      {
+                        name:"グルメポケットとは",
+                      },
+                      {
+                        name:"使い方 how to",
+                      },
+                      {
+                        name:"飲食店事業者さまへ",
+                      },
+                    ],
+                    
+                    items: [
+                      {
+                        src: 'https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/%E3%81%8A%E5%BE%97%E3%81%AA%E3%82%A4%E3%83%98%E3%82%99%E3%83%B3%E3%83%88%E6%83%85%E5%A0%B1.jpg',
+                      },
+                      {
+                        src: 'https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/%E9%A3%B2%E9%A3%9F%E5%BA%97%E3%81%AE%E6%A4%9C%E7%B4%A2.jpg',
+                      },
+                      {
+                        src: 'https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/%E3%81%8A%E5%BA%97%E3%83%95%E3%82%A9%E3%83%AD%E3%83%BC.jpg',
+                      },
+                      {
+                        src: 'https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/%E3%82%A4%E3%83%98%E3%82%99%E3%83%B3%E3%83%88FCM.jpg',
+                      },
+                      {
+                        src: 'https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/%E5%90%84%E7%A4%BESMS.jpg',
+                      },
+                      {
+                        src: 'https://groumet-pocket-home-page-image.s3.ap-northeast-1.amazonaws.com/%E3%82%A4%E3%83%98%E3%82%99%E3%83%B3%E3%83%88FCM.jpg',
+                      },
+                    ],
+                    slides: [
+                      'First',
+                      'Second',
+                      'Third',
+                      'Fourth',
+                      'Fifth',
+                      'Sixth',
+                    ],
+
+                    links: [
+                      'Q & A',
+                      'About Us',
+                      'Contact Us',
+                    ],
+                                  
+                  }
+                },
+
+                mounted: function () {
+                  // イベントリスナの追加
+                  window.addEventListener('scroll', this.handleScroll);
+                },
+
+                destroyed: function () {
+                  // イベントリスナの削除
+                  window.removeEventListener('scroll', this.handleScroll);
+                },  
+                
+                methods: {
+                  handleScroll() {
+                    // 現在アクティブなタブのスクロール位置を保持
+                    this.position[this.active] = window.scrollY;
+                  },
+                  handleIntersect(entries, observer){
+                    let intersecting_element = entries[0]
+                    if(intersecting_element.isIntersecting){
+                      let id = intersecting_element.target.id
+                      let index = Number(id.split("_")[1])
+                      this.tab_selected = index
+                    }
+                  },
+                },
+                watch: {
+                    // activeの変更を検知
+                    active() {
+                        // 切り替え後のタブですでに保持されたスクロール位置があればその位置を取得
+                        const y = this.position[this.active] || 0; 
+            
+                        // 即時スクロールすると、切り替え前のタブの長さ ＜ 切り替え後のタブの長さである場合に、切り替え前のタブの最大値までしかスクロールされないことがある（切り替え後のタブの内容が描画される前にスクロールしようとする）ので、setTimeoutでタイミングを少しずらす
+                        setTimeout(() => {
+                            window.scroll(0, y);
+                        }, 200);
+                     },
+                  },
+            
+            });
+
+        </script>
+
+    </body>
+</html>
+
+
